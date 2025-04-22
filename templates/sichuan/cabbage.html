@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Steamed Chinese Cabbage in Supreme Soup</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-container {
+      display: flex;
+      height: calc(100vh - 56px);
+    }
+
+    .left-img {
+      width: 70%;
+      height: 100%;
+    }
+
+    .right-panel {
+      width: 30%;
+      height: 100%;
+      background: #111;
+      color: white;
+      padding: 30px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ingredient-icons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ingredient-icons img {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: transform 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .ingredient-icons img:hover {
+      transform: scale(1.05);
+      border-color: #ff7043;
+    }
+
+    #description-area {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    #element-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('sichuan_dishes') }}">Sichuan Dishes</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link {% if request.path.endswith('/tofu') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('tofu_page') }}">Mapo Tofu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path.endswith('/fish') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fish_page') }}">Spicy Fish</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path.endswith('/cabbage') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('cabbage_page') }}">Steamed Cabbage</a>
+            </li>
+          </ul>
+          
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="main-container">
+    <!-- Left Image -->
+    <div class="left-img"
+         style="background: url('{{ url_for('static', filename='images/cabbage.png') }}') no-repeat center center;
+                background-size: cover;">
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <!-- Ingredient Icons -->
+      <div class="ingredient-icons">
+        <img src="{{ url_for('static', filename='images/knife-icon.png') }}" id="icon-knife" alt="Knife Technique">
+        <img src="{{ url_for('static', filename='images/soup-icon.png') }}" id="icon-soup" alt="Chicken Soup">
+      </div>
+
+      <!-- Description -->
+      <div id="description-area">
+        <h3>Steamed Chinese Cabbage in Supreme Soup (开水白菜)</h3>
+        <p>This elegant dish features ultra-thin cabbage leaves delicately steamed and served in a clear, fragrant chicken broth.</p>
+      </div>
+
+      <!-- Dynamic Image -->
+      <img id="element-image" src="" alt="" style="display: none;">
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const descriptionArea = document.getElementById('description-area');
+    const elementImage = document.getElementById('element-image');
+
+    document.getElementById('icon-knife').addEventListener('click', () => {
+      descriptionArea.innerHTML = `
+        <h3>Sichuan-Style Knife Technique</h3>
+        <p>Mastery in knife work creates cabbage leaves so thin they become translucent, enhancing both presentation and texture.</p>
+      `;
+      elementImage.src = "{{ url_for('static', filename='images/knife.jpg') }}";
+      elementImage.alt = "Sichuan Knife Technique";
+      elementImage.style.display = 'block';
+    });
+
+    document.getElementById('icon-soup').addEventListener('click', () => {
+      descriptionArea.innerHTML = `
+        <h3>Chicken Soup</h3>
+        <p>Clear, rich chicken broth is the soul of this dish — slow-simmered for depth and purity of flavor.</p>
+      `;
+      elementImage.src = "{{ url_for('static', filename='images/soup.jpg') }}";
+      elementImage.alt = "Chicken Soup";
+      elementImage.style.display = 'block';
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

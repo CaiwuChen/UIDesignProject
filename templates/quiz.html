@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuisine Categorization Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #fdfaf5;
+      padding-top: 70px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .cuisine-zones {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 20px 40px;
+    }
+
+    .cuisine-box {
+      flex: 1 1 calc(25% - 20px);
+      min-width: 180px;
+      height: 120px;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      text-align: center;
+      padding: 10px;
+      background-color: #fffbe6;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .cuisine-box.hovered {
+      border-color: #ff7043;
+      background-color: #fff2dd;
+    }
+
+    .dish-pool {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin: 30px;
+    }
+
+    .dish-item {
+      text-align: center;
+    }
+
+    .dish {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      object-fit: cover;
+      cursor: grab;
+    }
+
+    .dish-label {
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      background: #ffebcc;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+
+    #result-box {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-danger px-4">
+  <a href="/" class="btn btn-outline-light">⬅ Back to Map</a>
+  <span class="navbar-text text-white ms-auto fw-semibold">Cuisine Quiz</span>
+</nav>
+
+<!-- Cuisine Drop Zones -->
+<div class="cuisine-zones">
+  <div class="cuisine-box" data-cuisine="Sichuan">Sichuan 川菜</div>
+  <div class="cuisine-box" data-cuisine="Hunan">Hunan 湘菜</div>
+  <div class="cuisine-box" data-cuisine="Cantonese">Cantonese 粤菜</div>
+  <div class="cuisine-box" data-cuisine="Fujian">Fujian 闽菜</div>
+  <div class="cuisine-box" data-cuisine="Zhejiang">Zhejiang 浙菜</div>
+  <div class="cuisine-box" data-cuisine="Jiangsu">Jiangsu 苏菜</div>
+  <div class="cuisine-box" data-cuisine="Anhui">Anhui 徽菜</div>
+  <div class="cuisine-box" data-cuisine="Shandong">Shandong 鲁菜</div>
+</div>
+
+<!-- Dishes to Drag -->
+<div class="dish-pool">
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/tofu.jpg') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Mapo Tofu">
+    <div class="dish-label">Mapo Tofu</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/fish.png') }}" class="dish" draggable="true" data-answer="Hunan" alt="Fish">
+    <div class="dish-label">Spicy Fish</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/cabbage.png') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Cabbage">
+    <div class="dish-label">Steamed Cabbage</div>
+  </div>
+</div>
+
+<!-- Submit and Result -->
+<div class="text-center mt-4">
+  <button id="submitBtn" class="btn btn-success px-4">Submit</button>
+</div>
+
+<div id="result-box"></div>
+
+<div class="text-center mt-3">
+  <a href="/" class="btn btn-outline-secondary">Back to Start</a>
+</div>
+
+<!-- Script -->
+<script>
+  let draggedDish = null;
+  let draggedLabel = "";
+
+  document.querySelectorAll('.dish').forEach(dish => {
+    dish.addEventListener('dragstart', e => {
+      draggedDish = e.target;
+      draggedLabel = dish.nextElementSibling.textContent; // get label
+    });
+  });
+
+  document.querySelectorAll('.cuisine-box').forEach(box => {
+    box.addEventListener('dragover', e => {
+      e.preventDefault();
+      box.classList.add('hovered');
+    });
+
+    box.addEventListener('dragleave', () => {
+      box.classList.remove('hovered');
+    });
+
+    box.addEventListener('drop', e => {
+      e.preventDefault();
+      box.classList.remove('hovered');
+      if (draggedDish) {
+        const tag = document.createElement('div');
+        tag.className = 'tag';
+        tag.textContent = draggedLabel;
+        tag.setAttribute('data-answer', draggedDish.getAttribute('data-answer'));
+        box.appendChild(tag);
+        draggedDish.parentElement.remove(); // remove image from pool
+        draggedDish = null;
+      }
+    });
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    let correct = 0;
+    let total = document.querySelectorAll('.tag').length;
+
+    document.querySelectorAll('.tag').forEach(tag => {
+      let parentCuisine = tag.parentElement.getAttribute('data-cuisine');
+      if (tag.getAttribute('data-answer') === parentCuisine) {
+        correct++;
+        tag.style.backgroundColor = "#d4edda"; // green
+      } else {
+        tag.style.backgroundColor = "#f8d7da"; // red
+      }
+    });
+
+    document.getElementById("result-box").innerText = `✅ You got ${correct} out of ${total} correct!`;
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chinese Cuisine Map Tour</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+
+  <div id="startScreen">
+    <div id="startContent">
+      <h1>Chinese Cuisine Map Tour</h1>
+      <button id="startBtn">Start</button>
+    </div>
+  </div>
+
+  <div id="mapLayer" style="display: none;">
+    <object id="chinaMap" type="image/svg+xml" data="{{ url_for('static', filename='images/cn.svg') }}"></object>
+    <button id="quizMapBtn" onclick="window.location.href='/cuisine-quiz'">
+      🍜 Cuisine Quiz
+    </button>
+  </div>
+
+</body>
+</html>

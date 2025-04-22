@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapo Tofu</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-container {
+      display: flex;
+      height: calc(100vh - 56px); /* subtract navbar height */
+    }
+
+    .left-img {
+      width: 70%;
+      height: 100%;
+    }
+
+    .right-panel {
+      width: 30%;
+      height: 100%;
+      background: #111;
+      color: white;
+      padding: 30px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ingredient-icons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ingredient-icons img {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: transform 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .ingredient-icons img:hover {
+      transform: scale(1.05);
+      border-color: #ff7043;
+    }
+
+    #icon-pepper {
+      background: white;
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    #description-area {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    #element-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('sichuan_dishes') }}">Sichuan Dishes</a>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link {% if request.path.endswith('/tofu') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('tofu_page') }}">Mapo Tofu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path.endswith('/fish') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fish_page') }}">Spicy Fish</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path.endswith('/cabbage') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('cabbage_page') }}">Steamed Cabbage</a>
+            </li>
+          </ul>
+          
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="main-container">
+    <!-- Left Image -->
+    <div class="left-img"
+      style="background: url('{{ url_for('static', filename='images/tofu.jpg') }}') no-repeat center center;
+             background-size: cover;">
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <!-- Icons -->
+      <div class="ingredient-icons">
+        <img src="{{ url_for('static', filename='images/tofu-icon.jpg') }}" id="icon-tofu" alt="Tofu">
+        <img src="{{ url_for('static', filename='images/pepper-icon.png') }}" id="icon-pepper" alt="Peppercorn">
+        <img src="{{ url_for('static', filename='images/sauce-icon.jpg') }}" id="icon-douban" alt="Doubanjiang">
+      </div>
+
+      <!-- Dynamic Description -->
+      <div id="description-area">
+        <h3>Mapo Tofu (麻婆豆腐)</h3>
+        <p>A signature Sichuan dish featuring soft tofu, minced pork, and a bold spicy bean sauce infused with Sichuan peppercorns.</p>
+      </div>
+
+      <img id="element-image" src="" alt="" style="display: none;">
+
+    </div>
+  </div>
+
+  <!-- JavaScript to handle icon clicks -->
+  <script>
+    const descriptionArea = document.getElementById('description-area');
+    const elementImage = document.getElementById('element-image');
+  
+    document.getElementById('icon-tofu').addEventListener('click', () => {
+      descriptionArea.innerHTML = `
+        <h3>Tofu</h3>
+        <p>Soft and silky tofu absorbs all the flavors of the sauce while balancing the spiciness with its smooth texture.</p>
+      `;
+      elementImage.src = "{{ url_for('static', filename='images/real-tofu.jpg') }}";
+      elementImage.alt = "Tofu";
+      elementImage.style.display = 'block';
+    });
+  
+    document.getElementById('icon-pepper').addEventListener('click', () => {
+      descriptionArea.innerHTML = `
+        <h3>Sichuan Peppercorn</h3>
+        <p>The peppercorn adds a unique “numbing” sensation called <em>mala</em> — a hallmark of Sichuan flavor.</p>
+      `;
+      elementImage.src = "{{ url_for('static', filename='images/pepper.jpg') }}";
+      elementImage.alt = "Sichuan Peppercorn";
+      elementImage.style.display = 'block';
+    });
+  
+    document.getElementById('icon-douban').addEventListener('click', () => {
+      descriptionArea.innerHTML = `
+        <h3>Doubanjiang</h3>
+        <p>This fermented broad bean paste brings deep umami and the vibrant red hue that defines Mapo Tofu.</p>
+      `;
+      elementImage.src = "{{ url_for('static', filename='images/doubanjiang.jpg') }}";
+      elementImage.alt = "Doubanjiang";
+      elementImage.style.display = 'block';
+    });
+  </script>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
