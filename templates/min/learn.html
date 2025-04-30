@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Min Cuisine — Learn</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("{{ url_for('static', filename='images/sichuan-table.jpg') }}") no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .dish-bowl {
+      position: absolute;
+      width: 130px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .dish-bowl:hover {
+      transform: scale(1.1);
+    }
+
+    #fotiaoqiang {
+      top: 20%;
+      left: 20%;
+      width: 380px;
+    }
+
+    #lycheepork {
+      top: 20%;
+      left: 60%;
+      width: 380px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Min Dishes</a>
+    <a class="nav-link text-white-50" href="/index">Back to Start</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#fotiaoqiang">Buddha Jumps Over the Wall</a></li>
+        <li class="nav-item"><a class="nav-link" href="#lycheepork">Lychee Pork</a></li>
+        <li class="nav-item"><a class="nav-link" href="#fishball">Fuzhou Fish Balls</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Clickable Dishes -->
+<img src="{{ url_for('static', filename='images/fotiaoqiang1.png') }}" id="fotiaoqiang" class="dish-bowl" alt="Buddha Jumps Over the Wall">
+<img src="{{ url_for('static', filename='images/lycheepork1.png') }}" id="lycheepork" class="dish-bowl" alt="Lychee Pork">
+<img src="{{ url_for('static', filename='images/fishball1.png') }}" id="fishball" class="dish-bowl" alt="Fuzhou Fish Balls">
+<a href="/min/quiz" class="btn btn-warning position-absolute" style="bottom: 30px; right: 30px; font-weight: bold;">
+  🍳 Make a Dish
+</a>
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#fotiaoqiang').click(function () {
+    window.location.href = '/min/fotiaoqiang';
+  });
+
+  $('#lycheepork').click(function () {
+    window.location.href = '/min/lycheepork';
+  });
+
+  $('#fishball').click(function () {
+    window.location.href = '/min/fishball';
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lychee Pork (荔枝肉)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-container {
+      display: flex;
+      height: calc(100vh - 56px);
+    }
+
+    .left-img {
+      width: 70%;
+      height: 100%;
+      background: url('{{ url_for('static', filename='images/lycheepork.jpg') }}') no-repeat center center;
+      background-size: cover;
+    }
+
+    .right-panel {
+      width: 30%;
+      height: 100%;
+      background: #a087db;
+      color: white;
+      padding: 30px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ingredient-icons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ingredient-icons img {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: transform 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .ingredient-icons img:hover {
+      transform: scale(1.05);
+      border-color: #ff7043;
+    }
+
+    #description-area {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    #element-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('min_dishes') }}">Min Dishes</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.endswith('/fotiaoqiang') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fotiaoqiang_page') }}">Buddha Jumps Over the Wall</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.endswith('/lycheepork') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('lycheepork_page') }}">Lychee Pork</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.endswith('/fishball') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fishball_page') }}">Fuzhou Fish Ball</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Layout -->
+<div class="main-container">
+  <!-- Left Image -->
+  <div class="left-img"></div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+    <!-- Ingredient Icons -->
+    <div class="ingredient-icons">
+      <img src="{{ url_for('static', filename='images/knife-icon.png') }}" id="icon-knife" alt="Knife Technique">
+      <img src="{{ url_for('static', filename='images/sauce-icon.jpg') }}" id="icon-flavor" alt="Sweet and Sour Flavor">
+    </div>
+
+    <!-- Description -->
+    <div id="description-area">
+      <h3>Lychee Pork (荔枝肉)</h3>
+      <p>A beloved Fujian (Min) dish known for its delicate cutting technique and refreshing sweet-sour balance, evoking the taste of lychee fruit.</p>
+    </div>
+
+    <!-- Dynamic Image -->
+    <img id="element-image" src="" alt="" style="display: none;">
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const descriptionArea = document.getElementById('description-area');
+  const elementImage = document.getElementById('element-image');
+
+  document.getElementById('icon-knife').addEventListener('click', () => {
+    descriptionArea.innerHTML = `
+      <h3>Knife Technique</h3>
+      <p>The pork is expertly sliced and scored so that, when fried, it curls into shapes resembling lychee — showcasing Min cuisine’s emphasis on detailed cutting skills.</p>
+    `;
+    elementImage.src = "{{ url_for('static', filename='images/lycheeporkknife.jpg') }}";
+    elementImage.alt = "Knife Technique";
+    elementImage.style.display = 'block';
+  });
+
+  document.getElementById('icon-flavor').addEventListener('click', () => {
+    descriptionArea.innerHTML = `
+      <h3>Sweet and Sour Flavor</h3>
+      <p>Lychee Pork balances light sweetness and gentle sourness, highlighting Fujian’s love for refreshing and harmonious flavors.</p>
+    `;
+    elementImage.src = "";
+    elementImage.alt = "";
+    elementImage.style.display = 'block';
+  });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

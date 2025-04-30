@@ -1,31 +1,43 @@
 $(document).ready(function () {
-  $('#startBtn').click(function () {
-    $('#startScreen').fadeOut(1000, function () {
-      $('#mapLayer').fadeIn(1000);
+  const svgObject = document.getElementById('chinaMap');
 
-      // Wait for the SVG to fully load
-      const svgObject = document.getElementById('chinaMap');
-      svgObject.addEventListener('load', function () {
-        const svgDoc = svgObject.contentDocument;
-        const sichuan = svgDoc.getElementById('Sichuan');
+  const provinceInfo = {
+    Sichuan: "Famous for bold, spicy dishes like Mapo Tofu and Hotpot.",
+    Guangdong: "Home of Cantonese cuisine—dim sum, roast meats, and soups.",
+    Fujian: "Known for seafood, red yeast rice, and Buddha Jumps Over the Wall."
+  };
 
-        if (sichuan) {
-          // Hover effect
-          sichuan.addEventListener('mouseenter', function () {
-            sichuan.setAttribute('fill', '#ff7043');
-            sichuan.style.cursor = 'pointer';
-          });
+  if (svgObject) {
+    svgObject.addEventListener('load', function () {
+      const svgDoc = svgObject.contentDocument;
+      const sichuan = svgDoc.getElementById('Sichuan');
+      const guangdong = svgDoc.getElementById('Guangdong');
+      const fujian = svgDoc.getElementById('Fujian');
 
-          sichuan.addEventListener('mouseleave', function () {
-            sichuan.setAttribute('fill', '#cccccc');
-          });
+      const infoPanel = $('#infoPanel');
 
-          // Click handler
-          sichuan.addEventListener('click', function () {
-            window.location.href = '/sichuan/learn';
-          });
-        }
-      });
+      function setupHover(region, name, color, url) {
+        if (!region) return;
+
+        region.addEventListener('mouseenter', function () {
+          region.setAttribute('fill', color);
+          region.style.cursor = 'pointer';
+          infoPanel.html(`<strong>${name}</strong><br>${provinceInfo[name]}`);
+        });
+
+        region.addEventListener('mouseleave', function () {
+          region.setAttribute('fill', '#fc0303');
+          infoPanel.html(`<strong>Hover over a province</strong><br>to learn about its cuisine.`);
+        });
+
+        region.addEventListener('click', function () {
+          window.location.href = url;
+        });
+      }
+
+      setupHover(sichuan, 'Sichuan', '#ff7043', '/sichuan/learn');
+      setupHover(guangdong, 'Guangdong', '#3498db', '/yue/learn');
+      setupHover(fujian, 'Fujian', '#3498db', '/min/learn');
     });
-  });
+  }
 });

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fuzhou Fish Balls (福州鱼丸)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-container {
+      display: flex;
+      height: calc(100vh - 56px);
+    }
+
+    .left-img {
+      width: 70%;
+      height: 100%;
+      background: url('{{ url_for('static', filename='images/fishball.jpg') }}') no-repeat center center;
+      background-size: cover;
+    }
+
+    .right-panel {
+      width: 30%;
+      height: 100%;
+      background: #a087db;
+      color: white;
+      padding: 30px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ingredient-icons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ingredient-icons img {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: transform 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .ingredient-icons img:hover {
+      transform: scale(1.05);
+      border-color: #ff7043;
+    }
+
+    #description-area {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    #element-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('min_dishes') }}">Min Dishes</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.endswith('/fotiaoqiang') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fotiaoqiang_page') }}">Buddha Jumps Over the Wall</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.endswith('/lycheepork') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('lycheepork_page') }}">Lychee Pork</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.endswith('/fishball') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fishball_page') }}">Fuzhou Fish Ball</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Layout -->
+<div class="main-container">
+  <!-- Left Image -->
+  <div class="left-img"></div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+    <!-- Ingredient Icons -->
+    <div class="ingredient-icons">
+      <img src="{{ url_for('static', filename='images/fish-icon.png') }}" id="icon-texture" alt="Springy Texture">
+      <img src="{{ url_for('static', filename='images/meat-icon.jpg') }}" id="icon-filling" alt="Meat Filling">
+    </div>
+
+    <!-- Description -->
+    <div id="description-area">
+      <h3>Fuzhou Fish Balls (福州鱼丸)</h3>
+      <p>Handmade fish balls with a surprise savory pork filling inside — showcasing Fujian’s love for seafood and layered flavors.</p>
+    </div>
+
+    <!-- Dynamic Image -->
+    <img id="element-image" src="" alt="" style="display: none;">
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const descriptionArea = document.getElementById('description-area');
+  const elementImage = document.getElementById('element-image');
+
+  document.getElementById('icon-texture').addEventListener('click', () => {
+    descriptionArea.innerHTML = `
+      <h3>Springy Fish Paste Texture</h3>
+      <p>Through repeated pounding and folding of fresh fish paste, Fuzhou Fish Balls achieve a signature bouncy, tender texture that defines their charm.</p>
+    `;
+    elementImage.src = "{{ url_for('static', filename='images/fishball_texture.jpg') }}";
+    elementImage.alt = "Springy Texture";
+    elementImage.style.display = 'block';
+  });
+
+  document.getElementById('icon-filling').addEventListener('click', () => {
+    descriptionArea.innerHTML = `
+      <h3>Hidden Savory Filling</h3>
+      <p>Inside the fish ball is juicy minced pork, combining the sea’s sweetness with rich umami — a perfect balance loved in Fujian cuisine.</p>
+    `;
+    elementImage.src = "{{ url_for('static', filename='images/fishballmeat.jpeg') }}";
+    elementImage.alt = "Meat Filling";
+    elementImage.style.display = 'block';
+  });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -7,7 +7,7 @@
 
   <style>
     body {
-      background-color: #fdfaf5;
+      background-color: #cfa135;
       padding-top: 70px;
     }
 
@@ -92,7 +92,7 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-danger px-4">
-  <a href="/" class="btn btn-outline-light">⬅ Back to Map</a>
+  <a href="/index" class="btn btn-outline-light">⬅ Back to Map</a>
   <span class="navbar-text text-white ms-auto fw-semibold">Cuisine Quiz</span>
 </nav>
 
@@ -121,6 +121,32 @@
   <div class="dish-item">
     <img src="{{ url_for('static', filename='images/cabbage.png') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Cabbage">
     <div class="dish-label">Steamed Cabbage</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/chicken.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Chicken">
+    <div class="dish-label">White Cut Chicken</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/dimsum.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Dimsum">
+    <div class="dish-label">Dim Sum</div>
+  </div>
+
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/congee.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Congee">
+    <div class="dish-label">Congee Hotpot</div>
+  </div>
+
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/fotiaoqiang.jpg') }}" class="dish" draggable="true" data-answer="Fuzhou" alt="Buddha">
+    <div class="dish-label">Buddha Jumps Over the Wall</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/lycheepork.jpg') }}" class="dish" draggable="true" data-answer="Fuzhou" alt="Lychee">
+    <div class="dish-label">Lychee Pork</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/fishball.jpg') }}" class="dish" draggable="true" data-answer="Fuzhou" alt="fishball">
+    <div class="dish-label">Fuzhou Fish Balls</div>
   </div>
 </div>
 
