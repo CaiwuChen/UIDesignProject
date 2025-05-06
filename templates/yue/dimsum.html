@@ -81,24 +81,27 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('yue_dishes') }}">Yue Dishes</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link {% if request.path.endswith('/dimsum') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('dimsum_page') }}">Dim Sum</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path.endswith('/chicken') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('chicken_page') }}">White Cut Chicken</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path.endswith('/congee') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('congee_page') }}">Congee Hotpot</a>
-        </li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #90EE90;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Left: Title + Back to Start Button -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand mb-0" href="{{ url_for('yue_dishes') }}">Yue Dishes</a>
+      <a class="btn ms-3" href="{{ url_for('index') }}" style="background-color: #a087db; color: white; border: none;">
+        Back to Map
+      </a>
     </div>
+
+    <!-- Right: Dish Links with Highlight Logic -->
+    <div class="d-flex" style="gap: 60px;">
+      <a class="nav-link {% if request.path.endswith('/dimsum') %}fw-bold text-warning{% else %}text-dark{% endif %}" href="{{ url_for('dimsum_page') }}">Dim Sum</a>
+      <a class="nav-link {% if request.path.endswith('/chicken') %}fw-bold text-warning{% else %}text-dark{% endif %}" href="{{ url_for('chicken_page') }}">White Cut Chicken</a>
+      <a class="nav-link {% if request.path.endswith('/congee') %}fw-bold text-warning{% else %}text-dark{% endif %}" href="{{ url_for('congee_page') }}">Congee Hotpot</a>
+    </div>
+
   </div>
 </nav>
+
 
 <!-- Main Layout -->
 <div class="main-container">

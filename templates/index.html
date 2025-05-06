@@ -8,13 +8,16 @@
 
   <style>
     body {
-      background-color: #c68d06; /* Pure red background */
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    background-image: url("{{ url_for('static', filename='images/map_background.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
     #chinaMap {
       width: 80%;
@@ -37,7 +40,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #cd071e;">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Chinese Cuisine Tour</a>
     <div class="collapse navbar-collapse">
@@ -52,7 +55,12 @@
           <a class="nav-link" href="/min/learn">Fujian</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-warning ms-3 quiz-btn" href="/cuisine-quiz">🍜 Take Quiz</a>
+          <a class="nav-link" href="/lu/learn">Shandong</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn ms-3 quiz-btn" href="/cuisine-quiz" style="background-color: #a087db; color: white;">
+            🍜 Take Quiz
+          </a>
         </li>
       </ul>
     </div>

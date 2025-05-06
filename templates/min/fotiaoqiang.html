@@ -82,24 +82,28 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('min_dishes') }}">Min Dishes</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link {% if request.path.endswith('/fotiaoqiang') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fotiaoqiang_page') }}">Buddha Jumps Over the Wall</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path.endswith('/lycheepork') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('lycheepork_page') }}">Lychee Pork</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path.endswith('/fishball') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fishball_page') }}">Fuzhou Fish Ball</a>
-        </li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3498db;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Left: Title + Back Button -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand mb-0" href="{{ url_for('min_dishes') }}">Min Dishes</a>
+      <a class="btn ms-3" href="{{ url_for('index') }}" style="background-color: #a087db; color: white; border: none;">
+        Back to Map
+      </a>
     </div>
+
+    <!-- Right: Dish Links with Flask Highlighting -->
+    <div class="d-flex" style="gap: 60px;">
+      <a class="nav-link {% if request.path.endswith('/fotiaoqiang') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fotiaoqiang_page') }}">Buddha Jumps Over the Wall</a>
+      <a class="nav-link {% if request.path.endswith('/lycheepork') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('lycheepork_page') }}">Lychee Pork</a>
+      <a class="nav-link {% if request.path.endswith('/fishball') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fishball_page') }}">Fuzhou Fish Ball</a>
+      <a class="nav-link {% if request.path.endswith('/quiz') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('min_quiz') }}">Quiz</a>
+    </div>
+
   </div>
 </nav>
+
 
 <!-- Main Layout -->
 <div class="main-container">

@@ -28,34 +28,49 @@
     }
 
     #fotiaoqiang {
-      top: 20%;
-      left: 20%;
-      width: 380px;
+      top: 15%;
+      left: 13%;
+      width: 430px;
     }
 
     #lycheepork {
-      top: 20%;
-      left: 60%;
-      width: 380px;
+      top: 15%;
+      left: 55%;
+      width: 430px;
+    }
+
+    #fishball {
+      top: 40%;
+      left: 35%;
+      width: 430px;
     }
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Min Dishes</a>
-    <a class="nav-link text-white-50" href="/index">Back to Start</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#fotiaoqiang">Buddha Jumps Over the Wall</a></li>
-        <li class="nav-item"><a class="nav-link" href="#lycheepork">Lychee Pork</a></li>
-        <li class="nav-item"><a class="nav-link" href="#fishball">Fuzhou Fish Balls</a></li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3498db;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Left: Title + Back to Start -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand mb-0" href="#">Min Dishes</a>
+      <a class="btn ms-3" href="/index" style="background-color: #a087db; color: white; border: none;">
+        Back to Map
+      </a>
     </div>
+
+    <!-- Right: Dish Links -->
+    <div class="d-flex" style="gap: 60px;">
+      <a class="nav-link text-white" href="/min/fotiaoqiang">Buddha Jumps Over the Wall</a>
+      <a class="nav-link text-white" href="/min/lycheepork">Lychee Pork</a>
+      <a class="nav-link text-white" href="/min/fishball">Fuzhou Fish Balls</a>
+      <a class="nav-link text-white" href="/min/quiz">Quiz</a>
+    </div>
+
   </div>
 </nav>
+
 
 <!-- Clickable Dishes -->
 <img src="{{ url_for('static', filename='images/fotiaoqiang1.png') }}" id="fotiaoqiang" class="dish-bowl" alt="Buddha Jumps Over the Wall">
@@ -77,6 +92,10 @@
 
   $('#fishball').click(function () {
     window.location.href = '/min/fishball';
+  });
+
+  $('#quiz').click(function () {
+    window.location.href = '/min/quiz';
   });
 </script>
 

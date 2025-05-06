@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Congee Hotpot (粥底火锅)</title>
+  <title>Nine-turn Intestine (九转大肠)</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -21,6 +21,8 @@
     .left-img {
       width: 70%;
       height: 100%;
+      background: url('{{ url_for('static', filename='images/intestine1.jpg') }}') no-repeat center center;
+      background-size: cover;
     }
 
     .right-panel {
@@ -53,18 +55,11 @@
       border: 2px solid transparent;
     }
 
-    #icon-fresh {
+    #icon-offal {
       background: white;
       padding: 4px;
       border-radius: 12px;
     }
-
-    #icon-health {
-      background: white;
-      padding: 4px;
-      border-radius: 12px;
-    }
-
     .ingredient-icons img:hover {
       transform: scale(1.05);
       border-color: #ff7043;
@@ -87,49 +82,45 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #90EE90;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #5C4033;">
   <div class="container-fluid d-flex justify-content-between align-items-center">
 
     <!-- Left: Title + Back Button -->
     <div class="d-flex align-items-center">
-      <a class="navbar-brand mb-0" href="{{ url_for('yue_dishes') }}">Yue Dishes</a>
+      <a class="navbar-brand mb-0" href="{{ url_for('min_dishes') }}">Lu Dishes</a>
       <a class="btn ms-3" href="{{ url_for('index') }}" style="background-color: #a087db; color: white; border: none;">
         Back to Map
       </a>
     </div>
 
-    <!-- Right: Dish Links with Flask path-based highlighting -->
+    <!-- Right: Dish Links with Highlighting -->
     <div class="d-flex" style="gap: 60px;">
-      <a class="nav-link {% if request.path.endswith('/dimsum') %}fw-bold text-warning{% else %}text-dark{% endif %}" href="{{ url_for('dimsum_page') }}">Dim Sum</a>
-      <a class="nav-link {% if request.path.endswith('/chicken') %}fw-bold text-warning{% else %}text-dark{% endif %}" href="{{ url_for('chicken_page') }}">White Cut Chicken</a>
-      <a class="nav-link {% if request.path.endswith('/congee') %}fw-bold text-warning{% else %}text-dark{% endif %}" href="{{ url_for('congee_page') }}">Congee Hotpot</a>
+      <a class="nav-link {% if request.path.endswith('/intestine') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('intestine_page') }}">Nine-turn Intestine</a>
+      <a class="nav-link {% if request.path.endswith('/shrimp') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('shrimp_page') }}">Braised Prawns</a>
+      <a class="nav-link {% if request.path.endswith('/seacucumber') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('seacucumber_page') }}">Sea Cucumber with Scallion</a>
     </div>
 
   </div>
 </nav>
 
-
 <!-- Main Layout -->
 <div class="main-container">
   <!-- Left Image -->
-  <div class="left-img"
-       style="background: url('{{ url_for('static', filename='images/congee.jpg') }}') no-repeat center center;
-              background-size: cover;">
-  </div>
+  <div class="left-img"></div>
 
   <!-- Right Panel -->
   <div class="right-panel">
     <!-- Ingredient Icons -->
     <div class="ingredient-icons">
-      <img src="{{ url_for('static', filename='images/ingredient-icon.png') }}" id="icon-fresh" alt="Fresh Ingredients">
-      <img src="{{ url_for('static', filename='images/pot-icon.jpg') }}" id="icon-congee" alt="Congee Base">
-      <img src="{{ url_for('static', filename='images/healthy-icon.png') }}" id="icon-health" alt="Healthy Flavor">
+      <img src="{{ url_for('static', filename='images/pork-icon.png') }}" id="icon-offal" alt="Animal Offal">
+      <img src="{{ url_for('static', filename='images/fire-icon.jpg') }}" id="icon-technique" alt="Technique">
+      <img src="{{ url_for('static', filename='images/sauce-icon.jpg') }}" id="icon-flavor" alt="Flavor Layering">
     </div>
 
     <!-- Description -->
     <div id="description-area">
-      <h3>Congee Hotpot (粥底火锅)</h3>
-      <p>Congee Hotpot represents the gentle and nourishing side of Cantonese cooking, focusing on fresh seafood, light flavors, and healthy eating traditions.</p>
+      <h3>Nine-turn Intestine (九转大肠)</h3>
+      <p>A signature Lu dish that transforms humble pork intestine into a delicacy through masterful sauce layering, sugar-glazing, and wok technique.</p>
     </div>
 
     <!-- Dynamic Image -->
@@ -142,38 +133,32 @@
   const descriptionArea = document.getElementById('description-area');
   const elementImage = document.getElementById('element-image');
 
-  document.getElementById('icon-fresh').addEventListener('click', () => {
+  document.getElementById('icon-offal').addEventListener('click', () => {
     descriptionArea.innerHTML = `
-      <h3>Fresh Seafood & Ingredients</h3>
-      <p>Fresh shrimp, fish slices, and vegetables are key to Congee Hotpot, showcasing the Cantonese love for clean, seasonal tastes.</p>
-    `;
-    elementImage.src = "{{ url_for('static', filename='images/ingredients.jpg') }}";
-    elementImage.alt = "Fresh Ingredients";
+      <h3>Lu Cuisine’s Mastery of Offal</h3>
+      <p>Lu cuisine excels at preparing organ meats like pork intestine — cleaning them thoroughly and using multiple cooking steps to create deep, layered flavors. It reflects both respect for the whole animal and culinary finesse.</p>`;
+    elementImage.src = "{{ url_for('static', filename='images/raw-intestine.jpg') }}";
+    elementImage.alt = "Cleaned Intestine";
     elementImage.style.display = 'block';
   });
 
-  document.getElementById('icon-congee').addEventListener('click', () => {
+  document.getElementById('icon-technique').addEventListener('click', () => {
     descriptionArea.innerHTML = `
-      <h3>Congee Base</h3>
-      <p>Instead of water or broth, a rich rice porridge (congee) forms the base, gently flavoring ingredients as they cook.</p>
-    `;
-    elementImage.src = "{{ url_for('static', filename='images/congee-water.jpg') }}";
-    elementImage.alt = "Congee Base";
-    elementImage.style.display = 'block';
+      <h3>Masterful Stir-Frying</h3>
+      <p>Lu chefs use high-heat wok technique to quickly glaze and caramelize each piece while keeping the texture tender but resilient.</p>`;
+    elementImage.style.display = 'none';
   });
 
-  document.getElementById('icon-health').addEventListener('click', () => {
+  document.getElementById('icon-flavor').addEventListener('click', () => {
     descriptionArea.innerHTML = `
-      <h3>Light and Healthy Flavor</h3>
-      <p>Congee Hotpot reflects Cantonese values of light seasoning and nourishing the body, making every meal both delicious and wholesome.</p>
-    `;
-    elementImage.src = "";
-    elementImage.alt = "";
+      <h3>Layered Sweet-Savory Glaze</h3>
+      <p>"Nine-turn" refers to the complex flavor layering of Lu cuisine — combining soy sauce, vinegar, and aromatics with a glossy sugar glaze. The result is a balanced harmony of sweetness, sourness, umami, and richness in every bite.</p>`;
+    elementImage.src = "{{ url_for('static', filename='images/sugar-glaze.jpg') }}";
+    elementImage.alt = "Layered Flavor Glaze";
     elementImage.style.display = 'block';
   });
 </script>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

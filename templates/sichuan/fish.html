@@ -80,25 +80,29 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{{ url_for('sichuan_dishes') }}">Sichuan Dishes</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link {% if request.path.endswith('/tofu') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('tofu_page') }}">Mapo Tofu</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if request.path.endswith('/fish') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('fish_page') }}">Spicy Fish</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if request.path.endswith('/cabbage') %}fw-bold text-warning{% else %}text-white-50{% endif %}" href="{{ url_for('cabbage_page') }}">Steamed Cabbage</a>
-            </li>
-          </ul>
-          
-      </div>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #fc3030;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Left: Title + Back Button -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand mb-0" href="{{ url_for('sichuan_dishes') }}">Sichuan Dishes</a>
+      <a class="btn ms-3" href="{{ url_for('index') }}" style="background-color: #a087db; color: white; border: none;">
+        Back to Map
+      </a>
     </div>
-  </nav>
+
+    <!-- Right: Dish Links with conditional formatting -->
+    <div class="d-flex" style="gap: 80px;">
+      <a class="nav-link {% if request.path.endswith('/tofu') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('tofu_page') }}">Mapo Tofu</a>
+      <a class="nav-link {% if request.path.endswith('/fish') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fish_page') }}">Spicy Fish</a>
+      <a class="nav-link {% if request.path.endswith('/cabbage') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('cabbage_page') }}">Steamed Cabbage</a>
+      <a class="nav-link {% if request.path.endswith('/quiz') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('quiz') }}">Quiz</a>
+    </div>
+
+  </div>
+</nav>
+
 
   <!-- Main Layout -->
   <div class="main-container">

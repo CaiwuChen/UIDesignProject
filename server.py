@@ -74,6 +74,27 @@ def min_quiz():
 
 
 
+
+
+@app.route('/lu/learn')
+def lu_dishes():
+    return render_template('lu/learn.html')
+
+@app.route('/lu/intestine')
+def intestine_page():
+    return render_template('lu/intestine.html')
+
+@app.route('/lu/shrimp')
+def shrimp_page():
+    return render_template('lu/shrimp.html')
+
+@app.route('/lu/seacucumber')
+def seacucumber_page():
+    return render_template('lu/seacucumber.html')
+
+
+
+
 @app.route('/cuisine-quiz')
 def cuisine_quiz():
     return render_template('quiz.html')

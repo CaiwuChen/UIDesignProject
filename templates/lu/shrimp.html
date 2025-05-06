@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fuzhou Fish Balls (福州鱼丸)</title>
+  <title>Braised Prawns (红烧大虾)</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -21,7 +21,7 @@
     .left-img {
       width: 70%;
       height: 100%;
-      background: url('{{ url_for('static', filename='images/fishball.jpg') }}') no-repeat center center;
+      background: url('{{ url_for('static', filename='images/shrimp1.jpeg') }}') no-repeat center center;
       background-size: cover;
     }
 
@@ -43,6 +43,12 @@
       margin-bottom: 20px;
       flex-wrap: wrap;
       justify-content: center;
+    }
+
+    #icon-shrimp {
+      background: white;
+      padding: 4px;
+      border-radius: 12px;
     }
 
     .ingredient-icons img {
@@ -77,25 +83,21 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3498db;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #5C4033;">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-
     <!-- Left: Title + Back Button -->
     <div class="d-flex align-items-center">
-      <a class="navbar-brand mb-0" href="{{ url_for('min_dishes') }}">Min Dishes</a>
+      <a class="navbar-brand mb-0" href="{{ url_for('lu_dishes') }}">Lu Dishes</a>
       <a class="btn ms-3" href="{{ url_for('index') }}" style="background-color: #a087db; color: white; border: none;">
         Back to Map
       </a>
     </div>
-
     <!-- Right: Dish Links with Highlighting -->
     <div class="d-flex" style="gap: 60px;">
-      <a class="nav-link {% if request.path.endswith('/fotiaoqiang') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fotiaoqiang_page') }}">Buddha Jumps Over the Wall</a>
-      <a class="nav-link {% if request.path.endswith('/lycheepork') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('lycheepork_page') }}">Lychee Pork</a>
-      <a class="nav-link {% if request.path.endswith('/fishball') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fishball_page') }}">Fuzhou Fish Ball</a>
-      <a class="nav-link {% if request.path.endswith('/quiz') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('min_quiz') }}">Quiz</a>
+      <a class="nav-link {% if request.path.endswith('/intestine') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('intestine_page') }}">Nine-turn Intestine</a>
+      <a class="nav-link {% if request.path.endswith('/shrimp') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('shrimp_page') }}">Braised Prawns</a>
+      <a class="nav-link {% if request.path.endswith('/seacucumber') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('seacucumber_page') }}">Sea Cucumber with Scallion</a>
     </div>
-
   </div>
 </nav>
 
@@ -108,18 +110,19 @@
   <div class="right-panel">
     <!-- Ingredient Icons -->
     <div class="ingredient-icons">
-      <img src="{{ url_for('static', filename='images/fish-icon.png') }}" id="icon-texture" alt="Springy Texture">
-      <img src="{{ url_for('static', filename='images/meat-icon.jpg') }}" id="icon-filling" alt="Meat Filling">
+      <img src="{{ url_for('static', filename='images/seafood-icon.png') }}" id="icon-shrimp" alt="Prawns">
+      <img src="{{ url_for('static', filename='images/sauce-icon.jpg') }}" id="icon-thick" alt="Thick Sauce">
+      <img src="{{ url_for('static', filename='images/delicious-icon.png') }}" id="icon-seafood" alt="Seafood Flavor">
     </div>
 
     <!-- Description -->
     <div id="description-area">
-      <h3>Fuzhou Fish Balls (福州鱼丸)</h3>
-      <p>Handmade fish balls with a surprise savory pork filling inside — showcasing Fujian’s love for seafood and layered flavors.</p>
+      <h3>Braised Prawns (红烧大虾)</h3>
+      <p>This dish exemplifies Lu cuisine’s mastery of seafood with plump, juicy prawns braised in a glossy, richly flavored sauce.</p>
     </div>
 
     <!-- Dynamic Image -->
-    <img id="element-image" src="" alt="" style="display: none;">
+    <img id="element-image" src="" alt="">
   </div>
 </div>
 
@@ -128,28 +131,33 @@
   const descriptionArea = document.getElementById('description-area');
   const elementImage = document.getElementById('element-image');
 
-  document.getElementById('icon-texture').addEventListener('click', () => {
+  document.getElementById('icon-shrimp').addEventListener('click', () => {
     descriptionArea.innerHTML = `
-      <h3>Springy Fish Paste Texture</h3>
-      <p>Through repeated pounding and folding of fresh fish paste, Fuzhou Fish Balls achieve a signature bouncy, tender texture that defines their charm.</p>
+      <h3>Seafood Emphasis</h3>
+      <p>Lu cuisine is known for showcasing fresh seafood. The prawns are chosen for their size and natural sweetness, reflecting Shandong’s coastal culinary roots.</p>
     `;
-    elementImage.src = "{{ url_for('static', filename='images/fishball_texture.jpg') }}";
-    elementImage.alt = "Springy Texture";
+    elementImage.src = "{{ url_for('static', filename='images/raw-shrimp.jpg') }}";
+    elementImage.alt = "Prawns";
     elementImage.style.display = 'block';
   });
 
-  document.getElementById('icon-filling').addEventListener('click', () => {
+  document.getElementById('icon-thick').addEventListener('click', () => {
     descriptionArea.innerHTML = `
-      <h3>Hidden Savory Filling</h3>
-      <p>Inside the fish ball is juicy minced pork, combining the sea’s sweetness with rich umami — a perfect balance loved in Fujian cuisine.</p>
+      <h3>浓稠 Sauce</h3>
+      <p>The thickened soy-based sauce clings to every prawn, delivering a deep umami taste and a glossy presentation — a signature Lu technique.</p>
     `;
-    elementImage.src = "{{ url_for('static', filename='images/fishballmeat.jpeg') }}";
-    elementImage.alt = "Meat Filling";
-    elementImage.style.display = 'block';
+    elementImage.style.display = 'none';
+  });
+
+  document.getElementById('icon-seafood').addEventListener('click', () => {
+    descriptionArea.innerHTML = `
+      <h3>Layered Flavor</h3>
+      <p>Slow braising infuses the prawns with layers of savory-sweetness and aromatic depth, showcasing the sophistication of Lu taste profiles.</p>
+    `;
+    elementImage.style.display = 'none';
   });
 </script>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Chinese Cuisine Map Tour — Start</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <style>
@@ -14,13 +15,23 @@
       background: url("{{ url_for('static', filename='images/dishes-bg.jpg') }}") no-repeat center center;
       background-size: cover;
       display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      z-index: 1000;
+    }
+
+    #startScreen {
+      flex-grow: 1;
+      display: flex;
       justify-content: center;
       align-items: center;
     }
 
     #startContent {
       text-align: center;
-      background-color: #f0e48d; /* Light yellow background for the square */
+      background-color: #f0e48d;
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -32,19 +43,49 @@
       font-size: 1.2rem;
       border: none;
       border-radius: 8px;
-      background-color: #a087db; /* Light purple button */
+      background-color: #a087db;
       color: #333;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .start-btn:hover {
-      background-color: #b5a3f3; /* Slightly darker purple when hover */
+      background-color: #b5a3f3;
     }
   </style>
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #cd071e;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Chinese Cuisine Tour</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" href="/sichuan/learn">Sichuan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/yue/learn">Guangdong</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/min/learn">Fujian</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/lu/learn">Shandong</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn ms-3 quiz-btn" href="/cuisine-quiz" style="background-color: #a087db; color: white;">
+            🍜 Take Quiz
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Start Screen Content -->
 <div id="startScreen">
   <div id="startContent">
     <h1>Chinese Cuisine Map Tour</h1>
@@ -56,13 +97,15 @@
 <script>
   $(document).ready(function () {
     $('#mapBtn').click(function () {
-      window.location.href = "{{ url_for('index') }}"; 
+      window.location.href = "{{ url_for('index') }}";
     });
     $('#quizBtn').click(function () {
-      window.location.href = "{{ url_for('cuisine_quiz') }}"; 
+      window.location.href = "{{ url_for('cuisine_quiz') }}";
     });
   });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

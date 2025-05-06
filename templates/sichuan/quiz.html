@@ -8,17 +8,19 @@
 
   <style>
     body {
-      background-color: #fdfaf5;
+      background-color: #f0e48d;
       padding-top: 60px;
     }
 
     .quiz-section {
       max-width: 800px;
+      max-height: 1000px;
       margin: auto;
       padding: 40px;
       background: white;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      min-height: 480px;
     }
 
     .step {
@@ -42,19 +44,36 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+
+    .btn-purple {
+      background-color: #a087db;
+      color: white;
+      border: none;
+    }
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/sichuan/learn">Sichuan Dishes</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link text-white-50">Quiz</a></li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #fc3030;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Left: Title + Back Button -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand mb-0" href="/sichuan/learn">Sichuan Dishes</a>
+      <a class="btn ms-3" href="/index" style="background-color: #a087db; color: white; border: none;">
+        Back to Map
+      </a>
     </div>
+
+    <!-- Right: Dish Links + Quiz -->
+    <div class="d-flex" style="gap: 60px;">
+      <a class="nav-link text-white" href="/sichuan/tofu">Mapo Tofu</a>
+      <a class="nav-link text-white" href="/sichuan/fish">Spicy Fish</a>
+      <a class="nav-link text-white" href="/sichuan/cabbage">Steamed Cabbage</a>
+      <a class="nav-link fw-bold text-warning" href="/sichuan/quiz">Quiz</a>
+    </div>
+
   </div>
 </nav>
 
@@ -73,7 +92,9 @@
       <div><input type="radio" name="q1" value="C"> C. To make it crispy</div>
     </form>
     <div class="feedback" id="f1"></div>
-    <button class="btn btn-danger mt-3 float-end" onclick="handleAnswer('q1', 'B', 'f1', 2)">Next</button>
+    <div class="text-end mt-3">
+    <button class="btn btn-purple mt-3 float-end" onclick="handleAnswer('q1', 'B', 'f1', 2)">Next</button>
+  </div>
   </div>
 
   <!-- Step 2 -->
@@ -88,7 +109,7 @@
       <div><input type="radio" name="q2" value="D"> D. Black pepper</div>
     </form>
     <div class="feedback" id="f2"></div>
-    <button class="btn btn-danger mt-3 float-end" onclick="handleAnswer('q2', 'C', 'f2', 3)">Next</button>
+    <button class="btn btn-purple mt-3 float-end" onclick="handleAnswer('q2', 'C', 'f2', 3)">Next</button>
   </div>
 
   <!-- Step 3 -->
@@ -103,7 +124,7 @@
       <div><input type="radio" name="q3" value="D"> D. To color the dish</div>
     </form>
     <div class="feedback" id="f3"></div>
-    <button class="btn btn-danger mt-3 float-end" onclick="handleAnswer('q3', 'C', 'f3', 4)">Next</button>
+    <button class="btn btn-purple mt-3 float-end" onclick="handleAnswer('q3', 'C', 'f3', 4)">Next</button>
   </div>
 
   <!-- Step 4 -->
@@ -118,7 +139,7 @@
       <div><input type="radio" name="q4" value="D"> D. For thickening</div>
     </form>
     <div class="feedback" id="f4"></div>
-    <button class="btn btn-danger mt-3 float-end" onclick="handleAnswer('q4', 'C', 'f4', 5)">Finish</button>
+    <button class="btn btn-purple mt-3 float-end" onclick="handleAnswer('q4', 'C', 'f4', 5)">Finish</button>
   </div>
 
   <!-- Final Step -->
@@ -130,7 +151,7 @@
     </div>
     <h4 class="text-center" id="scoreDisplay"></h4>
     <div class="text-center">
-      <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Map</a>
+      <a href="{{ url_for('index') }}" class="btn btn-purple">Back to Map</a>
     </div>
   </div>
 </div>

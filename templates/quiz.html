@@ -29,15 +29,30 @@
     .cuisine-box {
       flex: 1 1 calc(25% - 20px);
       min-width: 180px;
-      height: 120px;
+      min-height: 120px;
       border: 2px dashed #ccc;
       border-radius: 8px;
-      text-align: center;
+      text-align: left;
       padding: 10px;
       background-color: #fffbe6;
       font-weight: bold;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* spacing between tags */
+      align-items: flex-start;
+      word-wrap: break-word;
     }
+    .tag {
+      display: block;  /* Force each tag onto a new line */
+      width: 100%;      /* Optional: stretch to container width */
+      margin-top: 6px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      background: #ffebcc;
+      padding: 6px 10px;
+      border-radius: 10px;
+    }
+
 
     .cuisine-box.hovered {
       border-color: #ff7043;
@@ -91,20 +106,38 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-dark bg-danger px-4">
-  <a href="/index" class="btn btn-outline-light">⬅ Back to Map</a>
-  <span class="navbar-text text-white ms-auto fw-semibold">Cuisine Quiz</span>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #cd071e;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/index">Chinese Cuisine Tour</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" href="/sichuan/learn">Sichuan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/yue/learn">Guangdong</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/min/learn">Fujian</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/lu/learn">Shandong</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn ms-3 quiz-btn" href="/cuisine-quiz" style="background-color: #a087db; color: white;">
+            🍜 Take Quiz
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
 <!-- Cuisine Drop Zones -->
 <div class="cuisine-zones">
   <div class="cuisine-box" data-cuisine="Sichuan">Sichuan 川菜</div>
-  <div class="cuisine-box" data-cuisine="Hunan">Hunan 湘菜</div>
-  <div class="cuisine-box" data-cuisine="Cantonese">Cantonese 粤菜</div>
+  <div class="cuisine-box" data-cuisine="Guangdong">Guangdong 粤菜</div>
   <div class="cuisine-box" data-cuisine="Fujian">Fujian 闽菜</div>
-  <div class="cuisine-box" data-cuisine="Zhejiang">Zhejiang 浙菜</div>
-  <div class="cuisine-box" data-cuisine="Jiangsu">Jiangsu 苏菜</div>
-  <div class="cuisine-box" data-cuisine="Anhui">Anhui 徽菜</div>
   <div class="cuisine-box" data-cuisine="Shandong">Shandong 鲁菜</div>
 </div>
 
@@ -115,12 +148,16 @@
     <div class="dish-label">Mapo Tofu</div>
   </div>
   <div class="dish-item">
-    <img src="{{ url_for('static', filename='images/fish.png') }}" class="dish" draggable="true" data-answer="Hunan" alt="Fish">
+    <img src="{{ url_for('static', filename='images/fish.png') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Fish">
     <div class="dish-label">Spicy Fish</div>
   </div>
   <div class="dish-item">
     <img src="{{ url_for('static', filename='images/cabbage.png') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Cabbage">
     <div class="dish-label">Steamed Cabbage</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/chilibeef.jpg') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Chilibeef">
+    <div class="dish-label">Chinese Chili Oil Beef</div>
   </div>
   <div class="dish-item">
     <img src="{{ url_for('static', filename='images/chicken.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Chicken">
@@ -130,6 +167,15 @@
     <img src="{{ url_for('static', filename='images/dimsum.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Dimsum">
     <div class="dish-label">Dim Sum</div>
   </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/niuhe.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="ChowFun">
+    <div class="dish-label">Beef Chow Fun</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/baozaifan.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Claypot">
+    <div class="dish-label">Claypot Rice</div>
+  </div>
+
 
   <div class="dish-item">
     <img src="{{ url_for('static', filename='images/congee.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Congee">
@@ -137,41 +183,69 @@
   </div>
 
   <div class="dish-item">
-    <img src="{{ url_for('static', filename='images/fotiaoqiang.jpg') }}" class="dish" draggable="true" data-answer="Fuzhou" alt="Buddha">
+    <img src="{{ url_for('static', filename='images/fotiaoqiang.jpg') }}" class="dish" draggable="true" data-answer="Fujian" alt="Buddha">
     <div class="dish-label">Buddha Jumps Over the Wall</div>
   </div>
   <div class="dish-item">
-    <img src="{{ url_for('static', filename='images/lycheepork.jpg') }}" class="dish" draggable="true" data-answer="Fuzhou" alt="Lychee">
+    <img src="{{ url_for('static', filename='images/lycheepork.jpg') }}" class="dish" draggable="true" data-answer="Fujian" alt="Lychee">
     <div class="dish-label">Lychee Pork</div>
   </div>
   <div class="dish-item">
-    <img src="{{ url_for('static', filename='images/fishball.jpg') }}" class="dish" draggable="true" data-answer="Fuzhou" alt="fishball">
+    <img src="{{ url_for('static', filename='images/fishball.jpg') }}" class="dish" draggable="true" data-answer="Fujian" alt="fishball">
     <div class="dish-label">Fuzhou Fish Balls</div>
   </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/peanutnoodles.jpg') }}" class="dish" draggable="true" data-answer="Fujian" alt="peanutnoodles">
+    <div class="dish-label">Fuzhou Peanut Noodles</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/intestine1.jpg') }}" class="dish" draggable="true" data-answer="Shandong" alt="Intestine">
+    <div class="dish-label">Nine-turn Intestine</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/seacucumber.jpg') }}" class="dish" draggable="true" data-answer="Shandong" alt="Seacucumber">
+    <div class="dish-label">Braised Sea Cucumber with Scallion</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/shrimp1.jpeg') }}" class="dish" draggable="true" data-answer="Shandong" alt="Shrimp">
+    <div class="dish-label">Braised Prawns</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/butterflyseacucumber.jpg') }}" class="dish" draggable="true" data-answer="Shandong" alt="butterflyseacucumber">
+    <div class="dish-label">Butterfly Seacucumber</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/Cuttlefish.jpg') }}" class="dish" draggable="true" data-answer="Shandong" alt="Cuttlefish">
+    <div class="dish-label">Cuttlefish Egg Soup</div>
+  </div>
 </div>
-
 <!-- Submit and Result -->
-<div class="text-center mt-4">
-  <button id="submitBtn" class="btn btn-success px-4">Submit</button>
-</div>
-
-<div id="result-box"></div>
-
-<div class="text-center mt-3">
+<!-- Submit + Back Buttons -->
+<div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+  <button id="submitBtn" class="btn px-4" style="background-color: #a087db; color: white;">Submit</button>
   <a href="/" class="btn btn-outline-secondary">Back to Start</a>
 </div>
 
-<!-- Script -->
+<!-- Result -->
+<div id="result-box" class="text-center mt-4"></div>
+
+
 <script>
   let draggedDish = null;
   let draggedLabel = "";
 
-  document.querySelectorAll('.dish').forEach(dish => {
-    dish.addEventListener('dragstart', e => {
-      draggedDish = e.target;
-      draggedLabel = dish.nextElementSibling.textContent; // get label
-    });
+  document.addEventListener("DOMContentLoaded", () => {
+    addDishDragListeners();
   });
+
+  function addDishDragListeners() {
+    document.querySelectorAll('.dish').forEach(dish => {
+      dish.addEventListener('dragstart', e => {
+        draggedDish = e.target;
+        draggedLabel = dish.nextElementSibling.textContent;
+      });
+    });
+  }
 
   document.querySelectorAll('.cuisine-box').forEach(box => {
     box.addEventListener('dragover', e => {
@@ -186,35 +260,94 @@
     box.addEventListener('drop', e => {
       e.preventDefault();
       box.classList.remove('hovered');
+
       if (draggedDish) {
         const tag = document.createElement('div');
         tag.className = 'tag';
         tag.textContent = draggedLabel;
         tag.setAttribute('data-answer', draggedDish.getAttribute('data-answer'));
         box.appendChild(tag);
-        draggedDish.parentElement.remove(); // remove image from pool
+        draggedDish.parentElement.remove();
         draggedDish = null;
       }
     });
   });
 
   document.getElementById('submitBtn').addEventListener('click', () => {
-    let correct = 0;
-    let total = document.querySelectorAll('.tag').length;
+  let correct = 0;
+  let total = document.querySelectorAll('.tag').length;
+  const dishPool = document.querySelector('.dish-pool');
 
-    document.querySelectorAll('.tag').forEach(tag => {
-      let parentCuisine = tag.parentElement.getAttribute('data-cuisine');
-      if (tag.getAttribute('data-answer') === parentCuisine) {
-        correct++;
-        tag.style.backgroundColor = "#d4edda"; // green
-      } else {
-        tag.style.backgroundColor = "#f8d7da"; // red
-      }
-    });
+  document.querySelectorAll('.tag').forEach(tag => {
+    let parentCuisine = tag.parentElement.getAttribute('data-cuisine');
+    let actualCuisine = tag.getAttribute('data-answer');
+    let dishName = tag.textContent;
 
-    document.getElementById("result-box").innerText = `✅ You got ${correct} out of ${total} correct!`;
+    if (actualCuisine === parentCuisine) {
+      correct++;
+      tag.style.backgroundColor = "#d4edda"; // green
+    } else {
+      // Remove from wrong box
+      tag.remove();
+
+      // Recreate dish
+      const dishItem = document.createElement('div');
+      dishItem.className = 'dish-item';
+
+      const img = document.createElement('img');
+      img.src = getDishImagePath(dishName);
+      img.className = 'dish';
+      img.setAttribute('draggable', 'true');
+      img.setAttribute('data-answer', actualCuisine);
+      img.alt = dishName;
+
+      const label = document.createElement('div');
+      label.className = 'dish-label';
+      label.textContent = dishName;
+
+      dishItem.appendChild(img);
+      dishItem.appendChild(label);
+      dishPool.appendChild(dishItem);
+
+      addDishDragListeners(); // reattach drag event
+    }
   });
+
+  const resultBox = document.getElementById("result-box");
+  if (correct === total && total > 0) {
+    resultBox.innerText = "🎉 Congratulations! All dishes are correctly categorized!";
+  } else {
+    resultBox.innerText = "";
+  }
+});
+
+
+  function getDishImagePath(dishName) {
+    const nameToFilename = {
+      "Mapo Tofu": "tofu.jpg",
+      "Spicy Fish": "fish.png",
+      "Steamed Cabbage": "cabbage.png",
+      "Chinese Chili Oil Beef": "chilibeef.jpg",
+      "White Cut Chicken": "chicken.jpg",
+      "Dim Sum": "dimsum.jpg",
+      "Beef Chow Fun": "niuhe.jpg",
+      "Claypot Rice": "baozaifan.jpg",
+      "Congee Hotpot": "congee.jpg",
+      "Buddha Jumps Over the Wall": "fotiaoqiang.jpg",
+      "Lychee Pork": "lycheepork.jpg",
+      "Fuzhou Fish Balls": "fishball.jpg",
+      "Fuzhou Peanut Noodles": "peanutnoodles.jpg",
+      "Nine-turn Intestine": "intestine1.jpg",
+      "Braised Sea Cucumber with Scallion": "seacucumber.jpg",
+      "Braised Prawns": "shrimp1.jpeg",
+      "Butterfly Seacucumber": "butterflyseacucumber.jpg",
+      "Cuttlefish Egg Soup": "Cuttlefish.jpg"
+    };
+    const filename = nameToFilename[dishName] || "default.jpg";
+    return `/static/images/${filename}`;
+  }
 </script>
+
 
 </body>
 </html>
