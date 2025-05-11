@@ -23,13 +23,11 @@
 
 .left-img {
   width: 70%;
-  height: calc(100vh - 55px); /* match right panel */
+  height: calc(100vh - 56px);
+  background: url("/static/images/chicken.jpg") no-repeat center center;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: black; /* fallback if image not loaded */
+  background-color: black;
 }
-
 .right-panel {
   width: 30%;
   height: calc(100vh - 55px); /* match left side */
@@ -41,6 +39,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 
     .ingredient-icons {
       display: flex;
@@ -192,10 +191,7 @@
 <!-- Main Layout -->
 <div class="main-container">
   <!-- Left Image -->
-  <div class="left-img"
-       style="background: url('{{ url_for('static', filename='images/chicken.jpg') }}') no-repeat center center;
-              background-size: cover;">
-  </div>
+  <div class="left-img"></div>
 
   <!-- Right Panel -->
   <div class="right-panel">

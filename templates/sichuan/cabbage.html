@@ -22,11 +22,12 @@
 
 .left-img {
   width: 70%;
-  height: calc(100vh - 55px); /* fill below-navbar area */
+  height: calc(100vh - 56px);
+  background: url("/static/images/cabbage.png") no-repeat center center;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: black;
 }
+
 
 .right-panel {
   width: 30%;
@@ -192,10 +193,10 @@
   <!-- Main Layout -->
   <div class="main-container">
     <!-- Left Image -->
-    <div class="left-img"
-         style="background: url('{{ url_for('static', filename='images/cabbage.png') }}') no-repeat center center;
-                background-size: cover;">
-    </div>
+    <div class="left-img"></div>
+
+    
+
 
     <!-- Right Panel -->
     <div class="right-panel">
