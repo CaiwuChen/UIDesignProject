@@ -1,8 +1,8 @@
-# Chinese Cuisine Map Tour - Chicken Dish Interactive Page
+# The Chinese Cuisine Tour 
 
 This is the website of **The Chinese Cuisine Tour**, a web application that explores famous regional Chinese dishes.
 
-## 🧰 Technologies
+## Technologies
 
 - Python Flask 
 - HTML & CSS
@@ -21,4 +21,4 @@ This is the website of **The Chinese Cuisine Tour**, a web application that expl
    python server.py
    ```
 3. Open your browser and go to:
-   http://127.0.0.1:5001 
+   http://127.0.0.1:5001.
