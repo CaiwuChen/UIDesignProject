@@ -106,33 +106,118 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #cd071e;">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ffb200;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/index">Chinese Cuisine Tour</a>
+    <a class="navbar-brand" href="{{ url_for('index') }}">Chinese Cuisine Tour</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" href="/sichuan/learn">Sichuan</a>
+
+        <!-- Sichuan -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/sichuan/' in request.path %}text-warning{% endif %}" href="/sichuan/learn" id="sichuanDropdown" role="button">
+            Sichuan
+          </a>
+          <ul class="dropdown-menu custom-dropdown-sichuan" aria-labelledby="sichuanDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/tofu') %}text-warning{% else %}text-white{% endif %}" href="/sichuan/tofu">Mapo Tofu</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/fish') %}text-warning{% else %}text-white{% endif %}" href="/sichuan/fish">Spicy Fish</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/cabbage') %}text-warning{% else %}text-white{% endif %}" href="/sichuan/cabbage">Steamed Cabbage</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/quiz') and '/sichuan/' in request.path %}text-warning{% else %}text-white{% endif %}" href="/sichuan/quiz">Quiz</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/yue/learn">Guangdong</a>
+
+        <!-- Guangdong -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/yue/' in request.path %}text-warning{% endif %}" href="/yue/learn" id="yueDropdown" role="button">
+            Guangdong
+          </a>
+          <ul class="dropdown-menu custom-dropdown-yue" aria-labelledby="yueDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/dimsum') %}text-warning{% else %}text-dark{% endif %}" href="/yue/dimsum">Dim Sum</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/chicken') %}text-warning{% else %}text-dark{% endif %}" href="/yue/chicken">White Cut Chicken</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/congee') %}text-warning{% else %}text-dark{% endif %}" href="/yue/congee">Congee Hotpot</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/min/learn">Fujian</a>
+
+        <!-- Fujian -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/min/' in request.path %}text-warning{% endif %}" href="/min/learn" id="fujianDropdown" role="button">
+            Fujian
+          </a>
+          <ul class="dropdown-menu custom-dropdown-fujian" aria-labelledby="fujianDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/fotiaoqiang') %}text-warning{% else %}text-white{% endif %}" href="/min/fotiaoqiang">Buddha Jumps Over the Wall</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/lycheepork') %}text-warning{% else %}text-white{% endif %}" href="/min/lycheepork">Lychee Pork</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/fishball') %}text-warning{% else %}text-white{% endif %}" href="/min/fishball">Fuzhou Fish Balls</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/quiz') and '/min/' in request.path %}text-warning{% else %}text-white{% endif %}" href="/min/quiz">Quiz</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/lu/learn">Shandong</a>
+
+        <!-- Shandong -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/lu/' in request.path %}text-warning{% endif %}" href="/lu/learn" id="luDropdown" role="button">
+            Shandong
+          </a>
+          <ul class="dropdown-menu custom-dropdown-lu" aria-labelledby="luDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/intestine') %}text-warning{% else %}text-white{% endif %}" href="/lu/intestine">Nine-turn Intestine</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/shrimp') %}text-warning{% else %}text-white{% endif %}" href="/lu/shrimp">Braised Prawns</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/seacucumber') %}text-warning{% else %}text-white{% endif %}" href="/lu/seacucumber">Sea Cucumber with Scallion</a></li>
+          </ul>
         </li>
+
+        <!-- Quiz Button -->
         <li class="nav-item">
           <a class="btn ms-3 quiz-btn" href="/cuisine-quiz" style="background-color: #a087db; color: white;">
-            🍜 Take Quiz
+            ❓ Categorizing Dishes 
           </a>
         </li>
+
       </ul>
     </div>
   </div>
 </nav>
 
+<!-- Custom Dropdown Styles -->
+<style>
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Province-specific dropdown colors */
+.custom-dropdown-sichuan {
+  background-color: #fc3030;
+}
+.custom-dropdown-sichuan .dropdown-item:hover {
+  background-color: #d72828;
+}
+
+.custom-dropdown-fujian {
+  background-color: #3498db;
+}
+.custom-dropdown-fujian .dropdown-item:hover {
+  background-color: #2980b9;
+}
+
+.custom-dropdown-lu {
+  background-color: #5C4033;
+}
+.custom-dropdown-lu .dropdown-item:hover {
+  background-color: #3e2a20;
+}
+
+.custom-dropdown-yue {
+  background-color: #90EE90;
+}
+.custom-dropdown-yue .dropdown-item:hover {
+  background-color: #76d676;
+}
+</style>
+<!-- Quiz Brief -->
+<div class="container text-center mt-4" style="max-width: 800px;">
+  <h2>🍽️ Categorize the Dishes!</h2>
+  <p class="fs-7">
+    Drag each dish into the box that matches its Chinese cuisine category. Try to get them all right!
+  </p>
+</div>
 <!-- Cuisine Drop Zones -->
 <div class="cuisine-zones">
   <div class="cuisine-box" data-cuisine="Sichuan">Sichuan 川菜</div>
@@ -140,6 +225,7 @@
   <div class="cuisine-box" data-cuisine="Fujian">Fujian 闽菜</div>
   <div class="cuisine-box" data-cuisine="Shandong">Shandong 鲁菜</div>
 </div>
+
 
 <!-- Dishes to Drag -->
 <div class="dish-pool">
@@ -158,6 +244,10 @@
   <div class="dish-item">
     <img src="{{ url_for('static', filename='images/chilibeef.jpg') }}" class="dish" draggable="true" data-answer="Sichuan" alt="Chilibeef">
     <div class="dish-label">Chinese Chili Oil Beef</div>
+  </div>
+  <div class="dish-item">
+    <img src="{{ url_for('static', filename='images/fenzhengrou.png') }}" class="dish" draggable="true" data-answer="Sichuan" alt="fenzhengrou">
+    <div class="dish-label">Steamed Pork with Rice Powder</div>
   </div>
   <div class="dish-item">
     <img src="{{ url_for('static', filename='images/chicken.jpg') }}" class="dish" draggable="true" data-answer="Guangdong" alt="Chicken">
@@ -341,7 +431,8 @@
       "Braised Sea Cucumber with Scallion": "seacucumber.jpg",
       "Braised Prawns": "shrimp1.jpeg",
       "Butterfly Seacucumber": "butterflyseacucumber.jpg",
-      "Cuttlefish Egg Soup": "Cuttlefish.jpg"
+      "Cuttlefish Egg Soup": "Cuttlefish.jpg",
+      "Steamed Pork with Rice Powder": "fenzhengrou.png"
     };
     const filename = nameToFilename[dishName] || "default.jpg";
     return `/static/images/${filename}`;

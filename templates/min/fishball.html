@@ -14,28 +14,31 @@
     }
 
     .main-container {
-      display: flex;
-      height: calc(100vh - 56px);
-    }
+  display: flex;
+  min-height: 100vh;
+  padding-top: 56px; /* match navbar height exactly */
+  box-sizing: border-box;
+}
 
-    .left-img {
-      width: 70%;
-      height: 100%;
-      background: url('{{ url_for('static', filename='images/fishball.jpg') }}') no-repeat center center;
-      background-size: cover;
-    }
+.left-img {
+  width: 70%;
+  height: calc(100vh - 56px); /* fills visible space below navbar */
+  background: url('{{ url_for('static', filename='images/fishball.jpg') }}') no-repeat center center;
+  background-size: cover;
+  background-color: black; /* fallback if image doesn't load */
+}
 
-    .right-panel {
-      width: 30%;
-      height: 100%;
-      background: #a087db;
-      color: white;
-      padding: 30px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+.right-panel {
+  width: 30%;
+  height: calc(100vh - 56px); /* match left */
+  background: #a087db;
+  color: white;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
     .ingredient-icons {
       display: flex;
@@ -75,29 +78,140 @@
   </style>
 </head>
 <body>
+<!-- Combined Navbar with Hover Dropdown and Active Highlight -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ffb200;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Chinese Cuisine Tour</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-center">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3498db;">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
+        <!-- Sichuan -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/sichuan/' in request.path %}text-warning{% endif %}" href="/sichuan/learn" id="sichuanDropdown" role="button">
+            Sichuan
+          </a>
+          <ul class="dropdown-menu custom-dropdown-sichuan" aria-labelledby="sichuanDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/tofu') %}text-warning{% else %}text-white{% endif %}" href="/sichuan/tofu">Mapo Tofu</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/fish') %}text-warning{% else %}text-white{% endif %}" href="/sichuan/fish">Spicy Fish</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/cabbage') %}text-warning{% else %}text-white{% endif %}" href="/sichuan/cabbage">Steamed Cabbage</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/quiz') and '/sichuan/' in request.path %}text-warning{% else %}text-white{% endif %}" href="/sichuan/quiz">Quiz</a></li>
+          </ul>
+        </li>
 
-    <!-- Left: Title + Back Button -->
-    <div class="d-flex align-items-center">
-      <a class="navbar-brand mb-0" href="{{ url_for('min_dishes') }}">Min Dishes</a>
-      <a class="btn ms-3" href="{{ url_for('index') }}" style="background-color: #a087db; color: white; border: none;">
-        Back to Map
-      </a>
+        <!-- Guangdong -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/yue/' in request.path %}text-warning{% endif %}" href="/yue/learn" id="yueDropdown" role="button">
+            Guangdong
+          </a>
+          <ul class="dropdown-menu custom-dropdown-yue" aria-labelledby="yueDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/dimsum') %}text-warning{% else %}text-dark{% endif %}" href="/yue/dimsum">Dim Sum</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/chicken') %}text-warning{% else %}text-dark{% endif %}" href="/yue/chicken">White Cut Chicken</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/congee') %}text-warning{% else %}text-dark{% endif %}" href="/yue/congee">Congee Hotpot</a></li>
+          </ul>
+        </li>
+
+        <!-- Fujian -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/min/' in request.path %}text-purple{% endif %}" href="/min/learn" id="fujianDropdown" role="button">
+            Fujian
+          </a>
+          <ul class="dropdown-menu custom-dropdown-fujian" aria-labelledby="fujianDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/fotiaoqiang') %}text-warning{% else %}text-white{% endif %}" href="/min/fotiaoqiang">Buddha Jumps Over the Wall</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/lycheepork') %}text-warning{% else %}text-white{% endif %}" href="/min/lycheepork">Lychee Pork</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/fishball') %}text-purple{% else %}text-white{% endif %}" href="/min/fishball">Fuzhou Fish Balls</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/quiz') and '/min/' in request.path %}text-warning{% else %}text-white{% endif %}" href="/min/quiz">Quiz</a></li>
+          </ul>
+        </li>
+
+        <!-- Shandong -->
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle {% if '/lu/' in request.path %}text-warning{% endif %}" href="/lu/learn" id="luDropdown" role="button">
+            Shandong
+          </a>
+          <ul class="dropdown-menu custom-dropdown-lu" aria-labelledby="luDropdown">
+            <li><a class="dropdown-item {% if request.path.endswith('/intestine') %}text-warning{% else %}text-white{% endif %}" href="/lu/intestine">Nine-turn Intestine</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/shrimp') %}text-warning{% else %}text-white{% endif %}" href="/lu/shrimp">Braised Prawns</a></li>
+            <li><a class="dropdown-item {% if request.path.endswith('/seacucumber') %}text-warning{% else %}text-white{% endif %}" href="/lu/seacucumber">Sea Cucumber with Scallion</a></li>
+          </ul>
+        </li>
+
+        <!-- Quiz Button -->
+        <li class="nav-item">
+          <a class="btn ms-3 quiz-btn" href="/cuisine-quiz" style="background-color: #a087db; color: white;">
+            ❓ Take the Categorization Quiz 
+          </a>
+        </li>
+
+      </ul>
     </div>
-
-    <!-- Right: Dish Links with Highlighting -->
-    <div class="d-flex" style="gap: 60px;">
-      <a class="nav-link {% if request.path.endswith('/fotiaoqiang') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fotiaoqiang_page') }}">Buddha Jumps Over the Wall</a>
-      <a class="nav-link {% if request.path.endswith('/lycheepork') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('lycheepork_page') }}">Lychee Pork</a>
-      <a class="nav-link {% if request.path.endswith('/fishball') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('fishball_page') }}">Fuzhou Fish Ball</a>
-      <a class="nav-link {% if request.path.endswith('/quiz') %}fw-bold text-warning{% else %}text-white{% endif %}" href="{{ url_for('min_quiz') }}">Quiz</a>
-    </div>
-
   </div>
 </nav>
+
+<!-- Custom Dropdown Styles -->
+<style>
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Province-specific dropdown colors */
+.custom-dropdown-sichuan {
+  background-color: #fc3030;
+}
+.custom-dropdown-sichuan .dropdown-item:hover {
+  background-color: #d72828;
+}
+
+.custom-dropdown-fujian {
+  background-color: #3498db;
+}
+.custom-dropdown-fujian .dropdown-item:hover {
+  background-color: #2980b9;
+}
+
+.custom-dropdown-lu {
+  background-color: #5C4033;
+}
+.custom-dropdown-lu .dropdown-item:hover {
+  background-color: #3e2a20;
+}
+
+.custom-dropdown-yue {
+  background-color: #90EE90;
+}
+.custom-dropdown-yue .dropdown-item:hover {
+  background-color: #76d676;
+}
+.text-purple {
+  color: #7e50e8 !important;
+}
+</style>
+
+<!-- Custom CSS for hover dropdown and Fujian color -->
+<style>
+/* Show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Fujian-style dropdown */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: #3498db;
+  border: none;
+}
+
+/* Hover effect for items */
+.dropdown-menu .dropdown-item:hover {
+  background-color: #2980b9;
+}
+</style>
+
 
 <!-- Main Layout -->
 <div class="main-container">

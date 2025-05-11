@@ -55,7 +55,8 @@ body, html {
 }
 
 object#chinaMap {
-  width: 95%;
-  height: 130%;
-  border: none;
+  width: 90%;
+  height: 650px;
+  margin-top: 60px;
 }
+
